@@ -17,6 +17,15 @@ export const metadata: Metadata = {
   title: "KPopPulls - Collect Your Favorite K-Pop Idols",
   description: "Pull and collect your favorite K-Pop idols in this gacha game",
   metadataBase: new URL('https://kpoppulls.vercel.app'),
+  icons: {
+    icon: [
+      { url: "/images/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/images/favicon-48.png", sizes: "48x48", type: "image/png" },
+      { url: "/images/logo.ico", sizes: "48x48" },
+    ],
+    shortcut: "/images/favicon-48.png",
+    apple: "/images/apple-icon.png",
+  },
   openGraph: {
     title: "KPopPulls - Collect Your Favorite K-Pop Idols",
     description: "Pull and collect your favorite K-Pop idols in this gacha game",
