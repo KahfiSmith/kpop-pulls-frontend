@@ -35,49 +35,45 @@ export const IdolCard: React.FC<ExtendedIdolCardProps> = ({
         };
 
   return (
-    <div className="relative w-full" data-cy="idol-card">
-      <div className="absolute -bottom-2 -right-2 w-full h-full bg-retro-yellow border-3 border-retro-brown rounded-lg"></div>
-      <div className="relative bg-retro-cream border-3 border-retro-brown rounded-lg overflow-hidden">
-      <div
-          className="bg-retro-yellow h-8 flex items-center px-3 border-b-3 border-retro-brown justify-between"
-        >
-          <div className="flex items-center space-x-1.5">
-            <div className="w-2.5 h-2.5 rounded-full bg-retro-coral border-2 border-retro-brown"></div>
-            <div className="w-2.5 h-2.5 rounded-full bg-retro-yellow border-2 border-retro-brown"></div>
-            <div className="w-2.5 h-2.5 rounded-full bg-retro-mint border-2 border-retro-brown"></div>
+    <div className="relative w-full min-w-0 group" data-cy="idol-card">
+      <div className="absolute -bottom-1.5 -right-1.5 sm:-bottom-2 sm:-right-2 w-full h-full bg-retro-yellow border-3 border-retro-brown rounded-xl transition-transform duration-200 group-hover:translate-x-0.5 group-hover:translate-y-0.5" />
+      <div className="relative bg-retro-cream border-3 border-retro-brown rounded-xl overflow-hidden transition-transform duration-200 group-hover:-translate-y-1">
+        <div className="bg-retro-yellow h-7 sm:h-8 flex items-center px-2.5 sm:px-3 border-b-3 border-retro-brown justify-between gap-2 min-w-0">
+          <div className="flex items-center space-x-1.5 shrink-0">
+            <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-retro-coral border-2 border-retro-brown" />
+            <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-retro-yellow border-2 border-retro-brown" />
+            <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-retro-mint border-2 border-retro-brown" />
           </div>
-          <div className="ml-2 text-retro-brown text-sm font-medium">
+          <div className="text-retro-brown text-xs sm:text-sm font-medium truncate">
             {group}
           </div>
         </div>
 
-        <div className="relative h-64 w-full">
+        <div className="relative aspect-[3/4] w-full">
           {imageSrc ? (
-            <div className="w-full h-full">
-              <OptimizedImage
-                src={imageSrc}
-                alt={`${name} from ${group}`}
-                fill
-                sizes="(max-width: 768px) 100vw, 288px"
-                objectFit={imageFit}
-              />
-            </div>
+            <OptimizedImage
+              src={imageSrc}
+              alt={`${name} from ${group}`}
+              fill
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+              objectFit={imageFit}
+            />
           ) : (
-            <div className="bg-retro-sage h-64 flex items-center justify-center">
+            <div className="absolute inset-0 bg-retro-sage flex items-center justify-center">
               <p className="text-retro-brown text-sm">Image not available</p>
             </div>
           )}
         </div>
 
-        <div className="p-3">
-          <div className="flex justify-between items-center mb-2">
-            <h3 className="text-base font-bold text-retro-brown">
+        <div className="p-2.5 sm:p-3">
+          <div className="flex flex-col gap-1.5 sm:flex-row sm:justify-between sm:items-start mb-2">
+            <h3 className="text-sm sm:text-base font-bold text-retro-brown leading-tight break-words">
               {name}
             </h3>
             {rarity && (
-              <div className={`flex items-center justify-center border-1 rounded-full ${rarityStyles.borderColor}`}>
+              <div className={`shrink-0 self-start flex items-center justify-center border-1 rounded-full ${rarityStyles.borderColor}`}>
                 <div
-                  className={`${rarityStyles.bgColor} px-2 py-0.5 rounded-full text-xs ${rarityStyles.textColor} font-medium`}
+                  className={`${rarityStyles.bgColor} px-2 py-0.5 rounded-full text-[10px] sm:text-xs ${rarityStyles.textColor} font-medium whitespace-nowrap`}
                 >
                   {rarities[rarity as RarityType].name}
                 </div>
@@ -85,24 +81,26 @@ export const IdolCard: React.FC<ExtendedIdolCardProps> = ({
             )}
           </div>
 
-          <div className="flex items-center mb-2">
-            <div className="w-2 h-2 rounded-full bg-retro-coral mr-1.5"></div>
-            <p className="text-retro-navy text-xs">{birthdate}</p>
-          </div>
+          <div className="space-y-1.5">
+            <div className="flex items-center min-w-0">
+              <div className="w-2 h-2 rounded-full bg-retro-coral mr-1.5 shrink-0" />
+              <p className="text-retro-navy text-xs truncate">{birthdate}</p>
+            </div>
 
-          <div className="flex items-center mb-2">
-            <div className="w-2 h-2 rounded-full bg-retro-yellow mr-1.5"></div>
-            <p className="text-retro-navy text-xs">{birthplace}</p>
-          </div>
+            <div className="flex items-center min-w-0">
+              <div className="w-2 h-2 rounded-full bg-retro-yellow mr-1.5 shrink-0" />
+              <p className="text-retro-navy text-xs truncate">{birthplace}</p>
+            </div>
 
-          <div className="flex items-center mb-2">
-            <div className="w-2 h-2 rounded-full bg-retro-mint mr-1.5"></div>
-            <p className="text-retro-navy text-xs">{position}</p>
+            <div className="flex items-center min-w-0">
+              <div className="w-2 h-2 rounded-full bg-retro-mint mr-1.5 shrink-0" />
+              <p className="text-retro-navy text-xs truncate">{position}</p>
+            </div>
           </div>
 
           {quote && (
-            <div className="mt-3 pt-3 border-t-1.5 border-dotted border-retro-brown">
-              <p className="italic text-retro-navy text-xs">
+            <div className="mt-2.5 pt-2.5 border-t-1.5 border-dotted border-retro-brown">
+              <p className="italic text-retro-navy text-xs line-clamp-2">
                 &ldquo;{quote}&rdquo;
               </p>
             </div>
@@ -112,7 +110,9 @@ export const IdolCard: React.FC<ExtendedIdolCardProps> = ({
             <Button
               data-cy="view-profile-button"
               onClick={onViewProfile}
-              className="mt-3 w-full bg-retro-yellow hover:bg-retro-orange text-retro-brown font-medium py-1.5 px-3 rounded-md border-2 border-retro-brown transition-all duration-200 shadow-[3px_3px_0px_0px_rgba(71,42,14,0.8)] hover:shadow-[1px_1px_0px_0px_rgba(71,42,14,0.8)] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[3px] active:translate-y-[3px] text-sm"
+              variant="retro"
+              size="sm"
+              className="mt-2.5 w-full"
             >
               View Profile
             </Button>
@@ -120,7 +120,7 @@ export const IdolCard: React.FC<ExtendedIdolCardProps> = ({
         </div>
       </div>
       {typeof countBadge !== 'undefined' && (
-        <div className="absolute top-0 right-0 translate-x-1/2 -translate-y-[40%] bg-retro-brown text-white rounded-full w-6 h-6 flex items-center justify-center text-[10px] font-bold z-30 ring-2 ring-retro-cream pointer-events-none">
+        <div className="absolute top-0 right-0 translate-x-1/3 -translate-y-1/3 sm:translate-x-1/2 sm:-translate-y-[40%] bg-retro-brown text-white rounded-full min-w-6 h-6 px-1 flex items-center justify-center text-[10px] font-bold z-30 ring-2 ring-retro-cream pointer-events-none">
           {countBadge}
         </div>
       )}

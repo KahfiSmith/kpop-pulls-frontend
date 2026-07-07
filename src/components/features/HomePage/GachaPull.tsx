@@ -8,9 +8,49 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui";
-import { pityConfig, rarities } from "@/data/rarities";
+import { pityConfig, rarities, RarityType } from "@/data/rarities";
 import { useGacha, useSoundEffects } from "@/hooks";
+import { Volume2, VolumeX, BarChart3 } from "lucide-react";
 import { useEffect, useState } from "react";
+
+const pityTiers: { key: keyof typeof pityConfig; rarity: RarityType }[] = [
+  { key: "rare", rarity: "rare" },
+  { key: "epic", rarity: "epic" },
+  { key: "legendary", rarity: "legendary" },
+  { key: "mythical", rarity: "mythical" },
+];
+
+function PityBar({
+  label,
+  current,
+  max,
+  rarity,
+}: {
+  label: string;
+  current: number;
+  max: number;
+  rarity: RarityType;
+}) {
+  const info = rarities[rarity];
+  const progress = Math.min((current / max) * 100, 100);
+
+  return (
+    <div className="space-y-1">
+      <div className="flex justify-between text-xs font-semibold text-retro-brown">
+        <span>{label}</span>
+        <span>
+          {current}/{max}
+        </span>
+      </div>
+      <div className="retro-stat-bar">
+        <div
+          className={`retro-stat-fill ${info.bgColor}`}
+          style={{ width: `${progress}%` }}
+        />
+      </div>
+    </div>
+  );
+}
 
 export const GachaPull: React.FC = () => {
   const {
@@ -47,32 +87,34 @@ export const GachaPull: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
-      <div className="bg-retro-cream border-3 border-retro-brown rounded-lg p-6 shadow-lg">
-        <h2 className="text-2xl font-bold text-retro-brown mb-4 text-center">
-          Idol Gacha
-        </h2>
+    <div className="w-full">
+      <div className="retro-panel p-4 sm:p-6">
+        <div
+          className="relative h-80 sm:h-96 w-full bg-retro-navy border-3 border-retro-brown rounded-xl mb-6 overflow-hidden"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(253,210,111,0.15),transparent_60%)]" />
 
-        <div className="relative h-96 w-full bg-retro-navy border-3 border-retro-brown rounded-lg mb-6 overflow-hidden">
           {animation.isPlaying ? (
             <div className="absolute inset-0 flex items-center justify-center">
               {animation.step === "pulling" && (
-                <div className="animate-pulse flex flex-col items-center">
-                  <div className="w-24 h-24 bg-retro-yellow rounded-full animate-spin border-8 border-retro-brown border-t-transparent"></div>
-                  <p className="text-retro-cream mt-4 text-xl font-bold">
+                <div className="animate-pulse flex flex-col items-center z-10">
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 bg-retro-yellow rounded-full animate-spin border-8 border-retro-brown border-t-transparent" />
+                  <p className="text-retro-cream mt-4 text-lg sm:text-xl font-bold font-bungee">
                     Pulling...
                   </p>
                 </div>
               )}
 
               {animation.step === "reveal" && animation.result && (
-                <div className="animate-fadeIn">
+                <div className="animate-fadeIn z-10">
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div
                       className={`absolute inset-0 ${
                         rarities[animation.result.idol.rarity].bgColor
                       } opacity-30`}
-                    ></div>
+                    />
                     <div className="transform scale-110 animate-scaleIn">
                       {animation.result.idol.image && (
                         <div className="relative">
@@ -81,7 +123,7 @@ export const GachaPull: React.FC = () => {
                             alt={animation.result.idol.name}
                             width={300}
                             height={300}
-                            className="rounded-lg border-4 border-retro-brown shadow-lg h-full w-full object-cover"
+                            className="rounded-xl border-4 border-retro-brown shadow-lg h-full w-full object-cover"
                             sizes="(max-width: 768px) 100vw, 300px"
                           />
                         </div>
@@ -92,30 +134,34 @@ export const GachaPull: React.FC = () => {
               )}
 
               {animation.step === "complete" && animation.result && (
-                <div className="flex flex-col items-center animate-fadeIn transition-all duration-500">
+                <div className="flex flex-col items-center animate-fadeIn transition-all duration-500 z-10">
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div
                       className={`absolute inset-0 ${
                         rarities[animation.result.idol.rarity].bgColor
                       } opacity-30`}
-                    ></div>
+                    />
                   </div>
 
-                  <div className="absolute inset-0 flex flex-col items-center justify-center animate-slideUp">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center animate-slideUp px-4">
                     <div className="text-center">
-                      <p className="text-retro-cream text-xl font-bold mb-2">
+                      <p className="text-retro-cream text-xl font-bungee mb-2">
                         {animation.result.pityPull
                           ? "Pity activated!"
                           : "Congratulations!"}
                       </p>
-                      <p className="text-retro-yellow text-lg mb-4">
+                      <p className="text-retro-yellow text-base sm:text-lg mb-4">
                         You pulled a{" "}
-                        {rarities[animation.result.idol.rarity].name} card!
+                        <span className="font-bold">
+                          {rarities[animation.result.idol.rarity].name}
+                        </span>{" "}
+                        card!
                       </p>
                       <Button
                         data-cy="continue-button"
                         onClick={() => skipAnimation()}
-                        className="bg-retro-yellow hover:bg-retro-orange text-retro-brown font-medium py-2 px-6 rounded-md border-2 border-retro-brown transition-all duration-200 shadow-[3px_3px_0px_0px_rgba(71,42,14,0.8)] hover:shadow-[1px_1px_0px_0px_rgba(71,42,14,0.8)] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[3px] active:translate-y-[3px]"
+                        variant="retro"
+                        size="lg"
                       >
                         Continue
                       </Button>
@@ -125,22 +171,25 @@ export const GachaPull: React.FC = () => {
               )}
             </div>
           ) : (
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <img
+            <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
+              <OptimizedImage
                 src="/images/gacha-machine.png"
                 alt="Gacha Machine"
                 width={170}
                 height={170}
-                className="mb-6"
+                className="mb-4 animate-float"
+                sizes="170px"
+                objectFit="contain"
                 style={{ imageRendering: "crisp-edges" }}
               />
-              <p className="text-retro-cream text-lg mb-6">
-                Pull an idol card!
+              <p className="text-retro-cream text-base sm:text-lg mb-5 font-medium">
+                Ready for your next pull?
               </p>
               <Button
                 data-cy="gacha-pull-button"
                 onClick={handlePull}
-                className="bg-retro-yellow hover:bg-retro-orange text-retro-brown font-medium py-2 px-6 rounded-md border-2 border-retro-brown transition-all duration-200 shadow-[3px_3px_0px_0px_rgba(71,42,14,0.8)] hover:shadow-[1px_1px_0px_0px_rgba(71,42,14,0.8)] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[3px] active:translate-y-[3px] text-lg"
+                variant="retro"
+                size="lg"
               >
                 Pull Card
               </Button>
@@ -148,145 +197,87 @@ export const GachaPull: React.FC = () => {
           )}
         </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-4 md:mb-0">
-            <div className="flex items-center space-x-2">
-              <Button
-                data-cy="toggle-mute-button"
-                onClick={toggleMute}
-                className="bg-retro-sage hover:bg-retro-teal text-retro-brown font-medium py-1 px-2 rounded-md border-2 border-retro-brown transition-all duration-200"
-              >
-                {isMuted ? "Unmute 🔇" : "Mute 🔊"}
-              </Button>
+        <div className="flex flex-col lg:flex-row gap-5">
+          <div className="flex gap-2 shrink-0">
+            <Button
+              data-cy="toggle-mute-button"
+              onClick={toggleMute}
+              variant="retro-sage"
+              size="sm"
+              aria-label={isMuted ? "Unmute sounds" : "Mute sounds"}
+            >
+              {isMuted ? <VolumeX className="size-4" /> : <Volume2 className="size-4" />}
+              {isMuted ? "Unmute" : "Mute"}
+            </Button>
 
-              <Button
-                data-cy="toggle-stats-button"
-                onClick={() => setShowStats(!showStats)}
-                className="bg-retro-mint hover:bg-retro-teal text-retro-brown font-medium py-1 px-2 rounded-md border-2 border-retro-brown transition-all duration-200"
-              >
-                {showStats ? "Hide Stats" : "Show Stats"}
-              </Button>
-            </div>
+            <Button
+              data-cy="toggle-stats-button"
+              onClick={() => setShowStats(!showStats)}
+              variant="retro-mint"
+              size="sm"
+            >
+              <BarChart3 className="size-4" />
+              {showStats ? "Hide Stats" : "Show Stats"}
+            </Button>
           </div>
 
-          <div className="text-retro-brown">
-            <p className="font-medium mb-1">Pity Progress:</p>
-            <div className="flex flex-wrap gap-2 text-xs">
-              <div className="bg-blue-100 px-2 py-1 rounded border border-blue-400 text-blue-700">
-                <span className="font-medium">Rising Star:</span>{" "}
-                {pityCounter.rare}/{pityConfig.rare}
-              </div>
-              <div className="bg-purple-100 px-2 py-1 rounded border border-purple-400 text-purple-700">
-                <span className="font-medium">Superstar:</span>{" "}
-                {pityCounter.epic}/{pityConfig.epic}
-              </div>
-              <div className="bg-orange-100 px-2 py-1 rounded border border-orange-400 text-orange-700">
-                <span className="font-medium">Idol Queen:</span>{" "}
-                {pityCounter.legendary}/{pityConfig.legendary}
-              </div>
-              <div className="bg-pink-100 px-2 py-1 rounded border border-pink-400 text-pink-700">
-                <span className="font-medium">Ultimate Bias:</span>{" "}
-                {pityCounter.mythical}/{pityConfig.mythical}
-              </div>
+          <div className="flex-1 retro-panel-inset p-4">
+            <p className="font-bold text-retro-brown text-sm mb-3">Pity Progress</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {pityTiers.map(({ key, rarity }) => (
+                <PityBar
+                  key={key}
+                  label={rarities[rarity].name}
+                  current={pityCounter[key]}
+                  max={pityConfig[key]}
+                  rarity={rarity}
+                />
+              ))}
             </div>
           </div>
         </div>
 
         {showStats && (
-          <div className="mt-6 p-4 bg-retro-sage border-2 border-retro-brown rounded-lg" data-cy="stats-panel">
-            <h3 className="text-lg font-bold text-retro-brown mb-2">
+          <div
+            className="mt-5 p-4 retro-panel-inset"
+            data-cy="stats-panel"
+          >
+            <h3 className="text-lg font-bold text-retro-brown mb-3">
               Pull Statistics
             </h3>
 
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
-              <div className="bg-white p-2 rounded border-2 border-retro-brown">
-                <p className="text-xs font-medium">Total Pulls</p>
-                <p className="text-lg font-bold">{stats.totalPulls}</p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+              <div className="retro-panel-inset p-3 text-center">
+                <p className="text-xs font-semibold text-retro-navy">Total Pulls</p>
+                <p className="text-xl font-bold text-retro-brown">{stats.totalPulls}</p>
               </div>
 
-              <div className="bg-gray-200 p-2 rounded border-2 border-retro-brown">
-                <p className="text-xs font-medium">Rookie</p>
-                <p className="text-lg font-bold">
-                  {stats.rarityDistribution.common}
-                </p>
-                <p className="text-xs">
-                  {stats.totalPulls > 0
-                    ? Math.round(
-                        (stats.rarityDistribution.common / stats.totalPulls) *
-                          100
-                      )
-                    : 0}
-                  %
-                </p>
-              </div>
+              {(["common", "rare", "epic", "legendary", "mythical"] as RarityType[]).map(
+                (rarity) => (
+                  <div
+                    key={rarity}
+                    className={`p-3 rounded-lg border-2 border-retro-brown text-center ${rarities[rarity].bgColor}`}
+                  >
+                    <p className="text-xs font-semibold">{rarities[rarity].name}</p>
+                    <p className={`text-xl font-bold ${rarities[rarity].textColor}`}>
+                      {stats.rarityDistribution[rarity]}
+                    </p>
+                    <p className="text-xs text-retro-navy">
+                      {stats.totalPulls > 0
+                        ? Math.round(
+                            (stats.rarityDistribution[rarity] / stats.totalPulls) * 100
+                          )
+                        : 0}
+                      %
+                    </p>
+                  </div>
+                )
+              )}
 
-              <div className="bg-blue-200 p-2 rounded border-2 border-retro-brown">
-                <p className="text-xs font-medium">Rising Star</p>
-                <p className="text-lg font-bold">
-                  {stats.rarityDistribution.rare}
-                </p>
-                <p className="text-xs">
-                  {stats.totalPulls > 0
-                    ? Math.round(
-                        (stats.rarityDistribution.rare / stats.totalPulls) * 100
-                      )
-                    : 0}
-                  %
-                </p>
-              </div>
-
-              <div className="bg-purple-200 p-2 rounded border-2 border-retro-brown">
-                <p className="text-xs font-medium">Superstar</p>
-                <p className="text-lg font-bold">
-                  {stats.rarityDistribution.epic}
-                </p>
-                <p className="text-xs">
-                  {stats.totalPulls > 0
-                    ? Math.round(
-                        (stats.rarityDistribution.epic / stats.totalPulls) * 100
-                      )
-                    : 0}
-                  %
-                </p>
-              </div>
-
-              <div className="bg-orange-200 p-2 rounded border-2 border-retro-brown">
-                <p className="text-xs font-medium">Idol Queen</p>
-                <p className="text-lg font-bold">
-                  {stats.rarityDistribution.legendary}
-                </p>
-                <p className="text-xs">
-                  {stats.totalPulls > 0
-                    ? Math.round(
-                        (stats.rarityDistribution.legendary /
-                          stats.totalPulls) *
-                          100
-                      )
-                    : 0}
-                  %
-                </p>
-              </div>
-
-              <div className="bg-pink-200 p-2 rounded border-2 border-retro-brown">
-                <p className="text-xs font-medium">Ultimate Bias</p>
-                <p className="text-lg font-bold">
-                  {stats.rarityDistribution.mythical}
-                </p>
-                <p className="text-xs">
-                  {stats.totalPulls > 0
-                    ? Math.round(
-                        (stats.rarityDistribution.mythical / stats.totalPulls) *
-                          100
-                      )
-                    : 0}
-                  %
-                </p>
-              </div>
-
-              <div className="bg-yellow-200 p-2 rounded border-2 border-retro-brown">
-                <p className="text-xs font-medium">Pity Pulls</p>
-                <p className="text-lg font-bold">{stats.pityPulls}</p>
-                <p className="text-xs">
+              <div className="retro-panel-inset p-3 text-center bg-retro-yellow/30">
+                <p className="text-xs font-semibold text-retro-navy">Pity Pulls</p>
+                <p className="text-xl font-bold text-retro-brown">{stats.pityPulls}</p>
+                <p className="text-xs text-retro-navy">
                   {stats.totalPulls > 0
                     ? Math.round((stats.pityPulls / stats.totalPulls) * 100)
                     : 0}
@@ -297,14 +288,17 @@ export const GachaPull: React.FC = () => {
 
             {pullHistory.pulls.length > 0 && (
               <div className="mt-4">
-                <h4 className="text-md font-bold text-retro-brown mb-2">
+                <h4 className="text-sm font-bold text-retro-brown mb-2">
                   Recent Pulls
                 </h4>
-                <div className="rounded-md border-2 border-retro-brown overflow-hidden shadow-sm" data-cy="recent-pulls-table">
+                <div
+                  className="rounded-lg border-2 border-retro-brown overflow-hidden"
+                  data-cy="recent-pulls-table"
+                >
                   <div className="max-h-36 overflow-y-auto">
                     <Table>
                       <TableHeader>
-                        <TableRow className="bg-gradient-to-r from-retro-cream to-retro-mint border-b-2 border-retro-brown">
+                        <TableRow className="bg-retro-mint/50 border-b-2 border-retro-brown">
                           <TableHead className="p-2 text-left text-xs font-bold text-retro-brown">
                             Time
                           </TableHead>
@@ -326,14 +320,9 @@ export const GachaPull: React.FC = () => {
                         {pullHistory.pulls.slice(0, 10).map((pull, index) => (
                           <TableRow
                             key={index}
-                            className={`
-                              ${
-                                index % 2 === 0
-                                  ? "bg-white/70"
-                                  : "bg-retro-cream/30"
-                              } 
-                              hover:bg-retro-yellow/20 transition-colors duration-150
-                            `}
+                            className={`${
+                              index % 2 === 0 ? "bg-white/70" : "bg-retro-cream/30"
+                            } hover:bg-retro-yellow/20 transition-colors`}
                           >
                             <TableCell className="p-2 text-xs">
                               {new Date(pull.timestamp).toLocaleTimeString()}
@@ -346,39 +335,18 @@ export const GachaPull: React.FC = () => {
                             </TableCell>
                             <TableCell className="p-2 text-xs">
                               <span
-                                className={`
-                                font-medium
-                                ${
-                                  pull.idol.rarity === "common" &&
-                                  "text-gray-700"
-                                }
-                                ${
-                                  pull.idol.rarity === "rare" && "text-blue-700"
-                                }
-                                ${
-                                  pull.idol.rarity === "epic" &&
-                                  "text-purple-700"
-                                }
-                                ${
-                                  pull.idol.rarity === "legendary" &&
-                                  "text-orange-700"
-                                }
-                                ${
-                                  pull.idol.rarity === "mythical" &&
-                                  "text-pink-700"
-                                }
-                              `}
+                                className={`font-semibold ${rarities[pull.idol.rarity].textColor}`}
                               >
                                 {rarities[pull.idol.rarity].name}
                               </span>
                             </TableCell>
                             <TableCell className="p-2 text-xs">
                               {pull.pityPull ? (
-                                <span className="font-medium text-retro-brown">
+                                <span className="font-semibold text-retro-brown">
                                   Yes
                                 </span>
                               ) : (
-                                <span className="text-gray-500">No</span>
+                                <span className="text-retro-navy/50">No</span>
                               )}
                             </TableCell>
                           </TableRow>
