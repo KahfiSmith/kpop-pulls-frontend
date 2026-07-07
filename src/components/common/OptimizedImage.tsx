@@ -46,8 +46,14 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     );
   }
 
+  const isFill = props.fill;
+  const hasExplicitSize = !isFill && props.width != null;
+
   return (
-    <div className="relative" style={{ height: props.fill ? '100%' : 'auto', width: '100%', position: 'relative' }}>
+    <div
+      className={`relative ${hasExplicitSize ? 'w-fit' : 'w-full'}`}
+      style={{ height: isFill ? '100%' : 'auto', position: 'relative' }}
+    >
       <Image
         {...props}
         src={imgSrc}
