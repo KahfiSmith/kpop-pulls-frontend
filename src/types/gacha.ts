@@ -30,9 +30,3 @@ export interface PullAnimation {
   result: PullResult | null;
   step: 'initial' | 'pulling' | 'reveal' | 'complete';
 }
-
-export interface AudioOptions {
-  volume?: number;
-  loop?: boolean;
-  autoplay?: boolean;
-}
