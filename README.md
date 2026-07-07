@@ -1,131 +1,94 @@
 <div align="center">
 
-# KPopPulls — Frontend
+# KPop Pulls — Frontend
 
-Koleksi kartu idol K‑Pop dengan mekanik gacha, pity system, dan manajemen koleksi lokal.
+K-Pop idol card gacha with pity system, collection management, and shareable collections.
 
 </div>
 
-## ✨ Fitur
+## Features
 
-- Gacha dengan rarity dan pity system (Rookie → Ultimate Bias).
-- Animasi reveal + efek suara untuk pull tertentu.
-- Statistik pull (distribusi rarity, total pulls, pity pulls).
-- Manajemen koleksi berbasis localStorage (tambah duplikat otomatis).
-- Ekspor/Impor koleksi (JSON) dan tautan share koleksi (encoded di URL).
-- UI retro dengan Tailwind CSS, Radix UI, dan ikon lucide.
+- Gacha pulls with rarity tiers and pity system (Rookie → Ultimate Bias)
+- Reveal animation and sound effects
+- Pull statistics (rarity distribution, pity pulls, recent history)
+- Collection management via localStorage with duplicate tracking
+- Export / import collection as JSON
+- Share collection via encoded URL
+- Filter, search, and sort your collection
+- Responsive retro UI with shared layout and components
 
-## 🧱 Teknologi
+## Tech Stack
 
-- Next.js 15 (App Router, Turbopack) + React 19 + TypeScript.
-- Tailwind CSS v4, `class-variance-authority`, `tailwind-merge`, `clsx`.
-- Radix UI (`@radix-ui/react-dialog`, `-label`, `-select`, `-toast`).
-- Animasi: `framer-motion`, `tw-animate-css`.
-- E2E Testing: Cypress 14.
+- Next.js 15 (App Router, Turbopack) + React 19 + TypeScript
+- Tailwind CSS v4, `class-variance-authority`, `tailwind-merge`, `clsx`
+- Radix UI (`dialog`, `label`, `select`, `slot`)
+- Icons: `lucide-react`
+- Animations: `tw-animate-css`
+- E2E testing: Cypress 14
 
-Lihat `package.json` untuk versi lengkap dependensi.
+See `package.json` for exact dependency versions.
 
-## 📦 Struktur Proyek (ringkas)
+## Project Structure
 
 ```
 src/
-  app/                 # App Router (home, collection)
-  components/          # UI dan fitur (GachaPull, modals, dsb.)
-  data/                # Data statis: idols, groups, rarities
-  hooks/               # Hooks: useGacha, useAudio, useLocalStorage
-  lib/                 # Utils
-  types/               # TypeScript types (gacha, collection)
+  app/                 # App Router pages (home, collection, shared)
+  components/
+    common/            # PageLayout, SiteHeader, OptimizedImage
+    features/          # GachaPull, IdolCard, collection components
+    ui/                # Button, Select, Dialog, etc.
+  data/                # idols, groups, rarities
+  hooks/               # useGacha, useSoundEffects, useLocalStorage
+  lib/                 # utils, collection helpers
+  types/               # TypeScript types
 public/
-  images/              # Gambar idol & aset UI
-  sounds/              # SFX reveal / pull
+  images/              # Idol images and gacha machine asset
+  sounds/              # Pull sound effects
 ```
 
-## 🧩 Data & Tipe
+## Data Model
 
-- `src/data/idols.ts` — daftar idol dengan schema:
-  ```ts
-  interface Idol {
-    id: string;           // unik, ex: "twice-sana"
-    name: string;         // nama asli
-    stageName: string;    // nama panggung
-    group: string;        // harus cocok dengan groups.ts
-    birthdate: string;
-    birthplace: string;
-    position: string;
-    quote: string;
-    rarity: RarityType;   // 'common' | 'rare' | 'epic' | 'legendary' | 'mythical'
-    image: string;        // path relatif ke /public/images
-  }
-  ```
-- `src/data/rarities.ts` — definisi rarity, warna, dan probabilitas + `pityConfig`.
-- `src/data/groups.ts` — daftar grup (id, nama, debutYear, company, jumlah member).
+- `src/data/idols.ts` — idol records (name, group, rarity, image path, etc.)
+- `src/data/rarities.ts` — rarity definitions, colors, probabilities, `pityConfig`
+- `src/data/groups.ts` — K-pop group metadata
 
-Catatan:
-- Nilai `group` di idols.ts harus konsisten dengan `groups.ts` (contoh: "Aespa").
-- Beberapa aset gambar bernama sama mungkin dipakai oleh idol berbeda berdasarkan nama panggung; sesuaikan file gambar bila perlu.
+`group` values in `idols.ts` must match names in `groups.ts`.
 
-## 🚀 Menjalankan Secara Lokal
+## Local Development
 
-Prasyarat:
-- Node.js 18+ (disarankan LTS terbaru)
-- pnpm 9+ (atau gunakan npm/yarn sesuai preferensi)
+Prerequisites: Node.js 18+, pnpm 9+
 
-Instal dependensi:
 ```bash
 pnpm install
-```
-
-Jalankan pengembangan (dev server di http://localhost:3000):
-```bash
-pnpm dev
-```
-
-Build produksi dan start:
-```bash
+pnpm dev        # http://localhost:3000
 pnpm build
 pnpm start
-```
-
-Pemeriksaan tipe & lint:
-```bash
 pnpm type-check
 pnpm lint
 ```
 
-## 🧪 Testing (Cypress)
+## Testing
 
-Jalankan E2E secara headless:
 ```bash
-pnpm cypress:run
+pnpm cypress:run     # headless E2E
+pnpm cypress:open    # interactive runner
 ```
 
-Buka UI Cypress:
-```bash
-pnpm cypress:open
-```
+CI runs type-check, lint, build, and Cypress on push/PR.
 
-Data‑cy attribute tersedia di berbagai komponen untuk seleksi yang stabil.
+## Implementation Notes
 
-## 🛠️ Catatan Implementasi
+- Collection, pull history, and pity state persist in `localStorage`
+- Share links encode collection JSON in the URL query string
+- Sound effects can be muted from the gacha screen
+- `data-cy` attributes are used for stable Cypress selectors
 
-- State koleksi, histori pull, dan pity disimpan di `localStorage` agar persisten di browser.
-- Pity system dikontrol oleh `pityConfig` di `src/data/rarities.ts`.
-- Fitur ekspor/impor koleksi menggunakan file JSON; fitur share membuat tautan berisi payload koleksi yang di‑encode (berlaku sementara sesuai timestamp).
-- Efek suara dapat di‑mute/unmute di UI; beberapa rarity dapat memiliki `soundEffect` khusus (opsional) di `rarities.ts`.
+## Contributing
 
-## 🧭 Rencana Pengembangan (opsional)
-
-- Filter koleksi (berdasarkan grup/rarity) dan pencarian.
-- Sinkronisasi koleksi lintas perangkat (backend ringan / Supabase).
-- Halaman detail grup/idol terdedikasi.
-
-## 🤝 Kontribusi
-
-Kontribusi sangat diterima. Harap ikuti langkah berikut:
-- Fork dan buat branch fitur/bugfix.
-- Jalankan `pnpm type-check` dan `pnpm lint` sebelum membuat PR.
-- Sertakan deskripsi perubahan dan langkah uji.
+1. Fork and create a feature branch
+2. Run `pnpm type-check` and `pnpm lint` before opening a PR
+3. Include a clear description and test steps
 
 ---
 
-Jika menemukan kesalahan data (idol/grup/rarity), silakan buat issue atau PR. Terima kasih! 🙌
+Found incorrect idol/group/rarity data? Open an issue or PR.

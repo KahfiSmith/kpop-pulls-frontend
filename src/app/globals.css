@@ -71,6 +71,7 @@
   
   /* Fonts */
   --font-bungee: 'Bungee', sans-serif;
+  --font-nunito: 'Nunito', sans-serif;
   --font-space-mono: 'Space Mono', monospace;
   
   /* Container */
@@ -211,7 +212,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-retro-cream text-retro-brown;
   }
 }
 
@@ -219,9 +220,74 @@
   .font-bungee {
     font-family: var(--font-bungee);
   }
+
+  .font-nunito {
+    font-family: var(--font-nunito), system-ui, sans-serif;
+  }
   
   .font-space-mono {
     font-family: var(--font-space-mono);
+  }
+
+  .retro-bg {
+    background-color: var(--retro-cream);
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(71, 42, 14, 0.06) 1px, transparent 0);
+    background-size: 24px 24px;
+  }
+
+  .retro-panel {
+    @apply bg-retro-cream border-3 border-retro-brown rounded-xl;
+    box-shadow: 4px 4px 0 0 var(--retro-brown);
+  }
+
+  .retro-panel-inset {
+    @apply bg-white/80 border-2 border-retro-brown rounded-lg;
+  }
+
+  .retro-input {
+    @apply w-full px-3 py-2 bg-white border-2 border-retro-brown rounded-lg text-retro-brown placeholder:text-retro-navy/50 focus:outline-none focus:ring-2 focus:ring-retro-yellow focus:border-retro-brown transition-shadow;
+  }
+
+  .retro-stat-bar {
+    @apply h-2 rounded-full bg-white/60 border border-retro-brown overflow-hidden;
+  }
+
+  .retro-stat-fill {
+    @apply h-full rounded-full transition-all duration-500;
+  }
+
+  .collection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15.5rem), 1fr));
+    gap: 1rem;
+    padding-bottom: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .collection-grid {
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
+      gap: 1.25rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .collection-grid {
+      grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+      gap: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .collection-grid {
+      grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    }
+  }
+
+  .collection-grid-item {
+    padding-bottom: 0.5rem;
+    padding-right: 0.5rem;
   }
   
   .border-1\.5 {
