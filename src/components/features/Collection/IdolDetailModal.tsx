@@ -2,6 +2,7 @@ import { OptimizedImage } from '@/components/common/OptimizedImage';
 import { Button } from '@/components/ui';
 import { Idol } from '@/data/idols';
 import { rarities } from '@/data/rarities';
+import { X } from 'lucide-react';
 import React, { useEffect } from 'react';
 
 interface IdolDetailModalProps {
@@ -20,10 +21,12 @@ export const IdolDetailModal: React.FC<IdolDetailModalProps> = ({ idol, onClose,
 
     if (isOpen) {
       document.addEventListener('keydown', handleEscapeKey);
+      document.body.style.overflow = 'hidden';
     }
 
     return () => {
       document.removeEventListener('keydown', handleEscapeKey);
+      document.body.style.overflow = '';
     };
   }, [isOpen, onClose]);
 
@@ -42,83 +45,74 @@ export const IdolDetailModal: React.FC<IdolDetailModalProps> = ({ idol, onClose,
   return (
     <div 
       data-cy="idol-detail-modal"
-      className="fixed inset-0 bg-retro-cream bg-opacity-50 flex items-center justify-center z-50 p-4"
+      className="fixed inset-0 bg-retro-brown/60 backdrop-blur-sm flex items-end sm:items-center justify-center z-50 p-0 sm:p-4"
       onClick={handleBackdropClick}
     >
-      <div className="bg-retro-cream rounded-lg border-3 border-retro-brown max-w-3xl w-full max-h-[90vh] overflow-hidden shadow-xl">
-        <div className="bg-retro-yellow p-4 flex items-center border-b-3 border-retro-brown">
-          <h2 className="text-xl font-bold text-retro-brown">{idol.name}</h2>
+      <div className="retro-panel max-w-3xl w-full max-h-[92dvh] sm:max-h-[90vh] overflow-hidden animate-scaleIn rounded-t-2xl rounded-b-none sm:rounded-xl">
+        <div className="bg-retro-yellow px-4 sm:px-5 py-3 sm:py-4 flex items-center justify-between border-b-3 border-retro-brown gap-3">
+          <div>
+            <h2 className="text-xl font-bungee text-retro-brown">{idol.name}</h2>
+            <p className="text-sm text-retro-navy">{idol.group}</p>
+          </div>
+          <button
+            onClick={onClose}
+            className="p-1.5 rounded-lg border-2 border-retro-brown bg-retro-cream hover:bg-retro-mint transition-colors"
+            aria-label="Close modal"
+          >
+            <X className="size-5 text-retro-brown" />
+          </button>
         </div>
 
-        <div className="p-6 overflow-y-auto max-h-[calc(90vh-80px)]">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="relative h-96 w-full rounded-lg overflow-hidden border-3 border-retro-brown">
-              <div className="w-full h-full">
-                <OptimizedImage
-                  src={idol.image}
-                  alt={`${idol.name} from ${idol.group}`}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </div>
+        <div className="p-4 sm:p-6 overflow-y-auto max-h-[calc(92dvh-8rem)] sm:max-h-[calc(90vh-80px)]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+            <div className="relative aspect-[3/4] md:aspect-auto md:h-80 lg:h-96 w-full rounded-xl overflow-hidden border-3 border-retro-brown">
+              <OptimizedImage
+                src={idol.image}
+                alt={`${idol.name} from ${idol.group}`}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
             </div>
 
-            <div className="bg-white p-4 rounded-lg border-3 border-retro-brown">
-              <h3 className="text-lg font-bold text-retro-brown mb-4">Idol Information</h3>
-              
-              <div className="space-y-3">
-                <div>
-                  <p className="text-sm text-gray-500">Full Name</p>
-                  <p className="font-medium text-retro-brown">{idol.name}</p>
-                </div>
-                
-                <div>
-                  <p className="text-sm text-gray-500">Stage Name</p>
-                  <p className="font-medium text-retro-brown">{idol.stageName}</p>
-                </div>
-                
-                <div>
-                  <p className="text-sm text-gray-500">Group</p>
-                  <p className="font-medium text-retro-brown">{idol.group}</p>
-                </div>
-                
-                <div>
-                  <p className="text-sm text-gray-500">Rarity</p>
-                  <div className="flex items-center">
-                    <p className="font-medium text-retro-brown mr-2">{rarityInfo.name}</p>
-                  </div>
-                </div>
-                
-                <div>
-                  <p className="text-sm text-gray-500">Birthdate</p>
-                  <p className="font-medium text-retro-brown">{idol.birthdate}</p>
-                </div>
-                
-                <div>
-                  <p className="text-sm text-gray-500">Birthplace</p>
-                  <p className="font-medium text-retro-brown">{idol.birthplace}</p>
-                </div>
-                
-                <div>
-                  <p className="text-sm text-gray-500">Position</p>
-                  <p className="font-medium text-retro-brown">{idol.position}</p>
-                </div>
+            <div className="retro-panel-inset p-4">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-bold text-retro-brown">Idol Information</h3>
+                <span className={`text-xs font-bold px-2.5 py-1 rounded-full border-2 ${rarityInfo.borderColor} ${rarityInfo.bgColor} ${rarityInfo.textColor}`}>
+                  {rarityInfo.name}
+                </span>
               </div>
+              
+              <dl className="space-y-3">
+                {[
+                  { label: 'Full Name', value: idol.name },
+                  { label: 'Stage Name', value: idol.stageName },
+                  { label: 'Group', value: idol.group },
+                  { label: 'Birthdate', value: idol.birthdate },
+                  { label: 'Birthplace', value: idol.birthplace },
+                  { label: 'Position', value: idol.position },
+                ].map(({ label, value }) => (
+                  <div key={label}>
+                    <dt className="text-xs font-semibold uppercase tracking-wide text-retro-navy/60">{label}</dt>
+                    <dd className="font-semibold text-retro-brown">{value}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
           </div>
           
           {idol.quote && (
-            <div className="mt-6 p-4 bg-retro-yellow bg-opacity-20 border-2 border-retro-yellow rounded-lg">
-              <p className="italic text-retro-brown">&ldquo;{idol.quote}&rdquo;</p>
+            <div className="mt-5 p-4 bg-retro-yellow/25 border-2 border-dashed border-retro-brown rounded-xl">
+              <p className="italic text-retro-brown text-center">&ldquo;{idol.quote}&rdquo;</p>
             </div>
           )}
         </div>
 
-        <div className="p-6 border-t-2 border-retro-brown bg-retro-cream flex justify-end">
+        <div className="px-5 py-4 border-t-2 border-retro-brown bg-retro-cream/80 flex justify-end">
           <Button
             data-cy="close-modal-button"
             onClick={onClose}
-            className="bg-retro-yellow hover:bg-retro-orange text-retro-brown font-medium py-1.5 px-4 rounded-md border-2 border-retro-brown transition-all duration-200 shadow-[3px_3px_0px_0px_rgba(71,42,14,0.8)] hover:shadow-[1px_1px_0px_0px_rgba(71,42,14,0.8)] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[3px] active:translate-y-[3px] text-sm"
+            variant="retro"
+            size="sm"
           >
             Close
           </Button>
@@ -126,4 +120,4 @@ export const IdolDetailModal: React.FC<IdolDetailModalProps> = ({ idol, onClose,
       </div>
     </div>
   );
-}; 
+};
