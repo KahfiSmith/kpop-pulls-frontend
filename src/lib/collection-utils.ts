@@ -22,11 +22,13 @@ export function filterCollectionItems(
       return false;
     }
 
-    if (
-      filters.search &&
-      !item.idol.name.toLowerCase().includes(filters.search.toLowerCase())
-    ) {
-      return false;
+    if (filters.search) {
+      const q = filters.search.toLowerCase();
+      const matchesName = item.idol.name.toLowerCase().includes(q);
+      const matchesStage = item.idol.stageName.toLowerCase().includes(q);
+      if (!matchesName && !matchesStage) {
+        return false;
+      }
     }
 
     return true;
@@ -53,7 +55,7 @@ export function sortCollectionItems(
         return sortOption.direction === 'desc' ? -diff : diff;
       }
       case 'name': {
-        const diff = a.idol.name.localeCompare(b.idol.name);
+        const diff = a.idol.stageName.localeCompare(b.idol.stageName);
         return sortOption.direction === 'desc' ? -diff : diff;
       }
       default:

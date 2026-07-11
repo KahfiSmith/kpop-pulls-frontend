@@ -328,7 +328,7 @@ export const GachaPull: React.FC = () => {
                               {new Date(pull.timestamp).toLocaleTimeString()}
                             </TableCell>
                             <TableCell className="p-2 text-xs font-medium">
-                              {pull.idol.name}
+                              {pull.idol.stageName}
                             </TableCell>
                             <TableCell className="p-2 text-xs">
                               {pull.idol.group}

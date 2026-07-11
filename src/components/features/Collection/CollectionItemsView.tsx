@@ -36,7 +36,7 @@ export function CollectionItemsView({
               data-cy={`collection-item-${item.idol.id}`}
             >
               <IdolCard
-                name={item.idol.name}
+                name={item.idol.stageName}
                 group={item.idol.group}
                 birthdate={item.idol.birthdate}
                 birthplace={item.idol.birthplace}

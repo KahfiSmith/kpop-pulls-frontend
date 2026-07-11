@@ -51,7 +51,7 @@ export const IdolDetailModal: React.FC<IdolDetailModalProps> = ({ idol, onClose,
       <div className="retro-panel max-w-3xl w-full max-h-[92dvh] sm:max-h-[90vh] overflow-hidden animate-scaleIn rounded-t-2xl rounded-b-none sm:rounded-xl">
         <div className="bg-retro-yellow px-4 sm:px-5 py-3 sm:py-4 flex items-center justify-between border-b-3 border-retro-brown gap-3">
           <div>
-            <h2 className="text-xl font-bungee text-retro-brown">{idol.name}</h2>
+            <h2 className="text-xl font-bungee text-retro-brown">{idol.stageName}</h2>
             <p className="text-sm text-retro-navy">{idol.group}</p>
           </div>
           <button

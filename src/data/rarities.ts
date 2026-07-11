@@ -15,7 +15,7 @@ export const rarities: Record<RarityType, Rarity> = {
   common: {
     id: 'common',
     name: 'Rookie',
-    probability: 60,
+    probability: 50,
     color: 'text-gray-600',
     borderColor: 'border-gray-400',
     bgColor: 'bg-gray-200',
@@ -25,7 +25,7 @@ export const rarities: Record<RarityType, Rarity> = {
   rare: {
     id: 'rare',
     name: 'Rising Star',
-    probability: 25,
+    probability: 30,
     color: 'text-blue-600',
     borderColor: 'border-blue-400',
     bgColor: 'bg-blue-200',
@@ -35,7 +35,7 @@ export const rarities: Record<RarityType, Rarity> = {
   epic: {
     id: 'epic',
     name: 'Superstar',
-    probability: 10,
+    probability: 15,
     color: 'text-purple-600',
     borderColor: 'border-purple-400',
     bgColor: 'bg-purple-200',
@@ -45,7 +45,7 @@ export const rarities: Record<RarityType, Rarity> = {
   legendary: {
     id: 'legendary',
     name: 'Idol Queen',
-    probability: 4,
+    probability: 10,
     color: 'text-orange-600',
     borderColor: 'border-orange-400',
     bgColor: 'bg-orange-200',
@@ -55,7 +55,7 @@ export const rarities: Record<RarityType, Rarity> = {
   mythical: {
     id: 'mythical',
     name: 'Ultimate Bias',
-    probability: 1,
+    probability: 5,
     color: 'text-pink-600',
     borderColor: 'border-pink-400',
     bgColor: 'bg-pink-200',
@@ -68,5 +68,5 @@ export const pityConfig = {
   rare: 5,
   epic: 20, 
   legendary: 50, 
-  mythical: 100 
+  mythical: 80 
 };
