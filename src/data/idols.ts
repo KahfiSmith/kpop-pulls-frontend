@@ -23,7 +23,7 @@ export const idols: Idol[] = [
     birthplace: "Osaka, Japan",
     position: "Vocalist, Dancer",
     quote: "Shy shy shy~",
-    rarity: "common",
+    rarity: "mythical",
     image: "/images/sana.jpeg",
   },
   {
@@ -35,7 +35,7 @@ export const idols: Idol[] = [
     birthplace: "Seoul, South Korea",
     position: "Lead Vocalist, Lead Dancer, Center",
     quote: "I'm gonna be a star!",
-    rarity: "epic",
+    rarity: "legendary",
     image: "/images/nayeon.jpeg",
   },
   {
@@ -83,7 +83,7 @@ export const idols: Idol[] = [
     birthplace: "San Antonio, Texas, USA",
     position: "Main Dancer, Vocalist",
     quote: "Yes, I'm Mina, and I love ONCE!",
-    rarity: "epic",
+    rarity: "rare",
     image: "/images/mina.jpeg",
   },
   {
@@ -131,7 +131,7 @@ export const idols: Idol[] = [
     birthplace: "Seoul, South Korea",
     position: "Lead Vocalist, Visual",
     quote: "Jisoo-turtle rabbit Kim!",
-    rarity: "epic",
+    rarity: "mythical",
     image: "/images/jiso.jpeg",
   },
   {
@@ -155,7 +155,7 @@ export const idols: Idol[] = [
     birthplace: "Auckland, New Zealand",
     position: "Main Vocalist, Lead Dancer",
     quote: "Stay tuned!",
-    rarity: "legendary",
+    rarity: "mythical",
     image: "/images/rose.jpeg",
   },
   {
@@ -179,7 +179,7 @@ export const idols: Idol[] = [
     birthplace: "Daegu, South Korea",
     position: "Leader, Lead Dancer, Visual",
     quote: "Baerene!",
-    rarity: "epic",
+    rarity: "mythical",
     image: "/images/irene.jpeg",
   },
   {
@@ -191,7 +191,7 @@ export const idols: Idol[] = [
     birthplace: "Ansan, South Korea",
     position: "Main Dancer, Lead Vocalist",
     quote: "Seulgi bear!",
-    rarity: "legendary",
+    rarity: "mythical",
     image: "/images/seulgi.jpeg",
   },
   {
@@ -203,7 +203,7 @@ export const idols: Idol[] = [
     birthplace: "Seongbuk-dong, South Korea",
     position: "Main Vocalist",
     quote: "Wannie!",
-    rarity: "epic",
+    rarity: "legendary",
     image: "/images/wendy.jpeg",
   },
   {
@@ -215,7 +215,7 @@ export const idols: Idol[] = [
     birthplace: "Jeju Island, South Korea",
     position: "Lead Rapper, Sub-Vocalist",
     quote: "I'm Joy, I'm a vitamin!",
-    rarity: "common",
+    rarity: "epic",
     image: "/images/joy.jpeg",
   },
   {
@@ -239,7 +239,7 @@ export const idols: Idol[] = [
     birthplace: "Bucheon, South Korea",
     position: "Leader, Main Dancer, Visual",
     quote: "I'm Karina, æ-Karina!",
-    rarity: "legendary",
+    rarity: "mythical",
     image: "/images/karina.jpeg",
   },
   {
@@ -251,7 +251,7 @@ export const idols: Idol[] = [
     birthplace: "Tokyo, Japan",
     position: "Main Rapper, Sub-Vocalist",
     quote: "Naevis, calling!",
-    rarity: "epic",
+    rarity: "rare",
     image: "/images/giselle.jpeg",
   },
   {
@@ -275,7 +275,7 @@ export const idols: Idol[] = [
     birthplace: "Harbin, China",
     position: "Main Vocalist, Maknae",
     quote: "Black Mamba!",
-    rarity: "epic",
+    rarity: "mythical",
     image: "/images/ningning.jpeg",
   },
   {
@@ -287,7 +287,7 @@ export const idols: Idol[] = [
     birthplace: "Jeonju, South Korea",
     position: "Leader, Main Dancer, Lead Vocalist",
     quote: "In my area!",
-    rarity: "legendary",
+    rarity: "mythical",
     image: "/images/yeji.jpeg",
   },
   {
@@ -299,7 +299,7 @@ export const idols: Idol[] = [
     birthplace: "Incheon, South Korea",
     position: "Main Vocalist",
     quote: "Dalla Dalla!",
-    rarity: "epic",
+    rarity: "legendary",
     image: "/images/lia.jpeg",
   },
   {
@@ -311,7 +311,7 @@ export const idols: Idol[] = [
     birthplace: "Seoul, South Korea",
     position: "Main Rapper, Lead Dancer, Center",
     quote: "Not shy, not me!",
-    rarity: "epic",
+    rarity: "mythical",
     image: "/images/ryujin.jpeg",
   },
   {
@@ -323,7 +323,7 @@ export const idols: Idol[] = [
     birthplace: "Yongin, South Korea",
     position: "Main Dancer, Sub-Vocalist, Sub-Rapper",
     quote: "Mafia in the morning!",
-    rarity: "common",
+    rarity: "epic",
     image: "/images/chaeryeong.jpeg",
   },
   {
@@ -347,7 +347,7 @@ export const idols: Idol[] = [
     birthplace: "Cheongju, South Korea",
     position: "Leader, Lead Vocalist, Lead Dancer",
     quote: "I am!",
-    rarity: "epic",
+    rarity: "legendary",
     image: "/images/yujin.jpeg",
   },
   {
@@ -359,7 +359,7 @@ export const idols: Idol[] = [
     birthplace: "Seoul, South Korea",
     position: "Main Rapper, Lead Dancer, Sub-Vocalist",
     quote: "I've IVE!",
-    rarity: "common",
+    rarity: "rare",
     image: "/images/gaeul.jpeg",
   },
   {
@@ -371,7 +371,7 @@ export const idols: Idol[] = [
     birthplace: "Nagoya, Japan",
     position: "Main Rapper, Sub-Vocalist",
     quote: "Love dive!",
-    rarity: "common",
+    rarity: "mythical",
     image: "/images/rei.jpeg",
   },
   {
@@ -383,7 +383,7 @@ export const idols: Idol[] = [
     birthplace: "Seoul, South Korea",
     position: "Lead Dancer, Sub-Vocalist, Visual, Center",
     quote: "Kitsch!",
-    rarity: "legendary",
+    rarity: "mythical",
     image: "/images/wonyoung.jpeg",
   },
   {
@@ -419,7 +419,7 @@ export const idols: Idol[] = [
     birthplace: "Chuncheon, South Korea",
     position: "Lead Dancer, Visual",
     quote: "Attention!",
-    rarity: "epic",
+    rarity: "mythical",
     image: "/images/minji.jpeg",
   },
   {
@@ -431,7 +431,7 @@ export const idols: Idol[] = [
     birthplace: "Melbourne, Australia",
     position: "Lead Vocalist, Lead Dancer",
     quote: "Hype boy!",
-    rarity: "epic",
+    rarity: "rare",
     image: "/images/hanni.jpeg",
   },
   {
@@ -443,7 +443,7 @@ export const idols: Idol[] = [
     birthplace: "Newcastle, Australia",
     position: "Main Vocalist, Lead Dancer",
     quote: "Cookie!",
-    rarity: "legendary",
+    rarity: "mythical",
     image: "/images/danielle.jpeg",
   },
   {
@@ -455,7 +455,7 @@ export const idols: Idol[] = [
     birthplace: "Seoul, South Korea",
     position: "Lead Vocalist",
     quote: "OMG!",
-    rarity: "common",
+    rarity: "epic",
     image: "/images/haerin.jpeg",
   },
   {
@@ -467,7 +467,7 @@ export const idols: Idol[] = [
     birthplace: "Incheon, South Korea",
     position: "Lead Dancer, Sub-Vocalist, Maknae",
     quote: "Ditto!",
-    rarity: "common",
+    rarity: "rare",
     image: "/images/hyein.jpeg",
   },
   {
@@ -491,7 +491,7 @@ export const idols: Idol[] = [
     birthplace: "Denpasar, Bali, Indonesia",
     position: "Vocalist",
     quote: "Corazón a corazón!",
-    rarity: "epic",
+    rarity: "mythical",
     image: "/images/carmen.jpeg",
   },
   {
@@ -527,7 +527,7 @@ export const idols: Idol[] = [
     birthplace: "Seoul, South Korea",
     position: "Leader, Dancer, Visual",
     quote: "Heartful!",
-    rarity: "common",
+    rarity: "mythical",
     image: "/images/jiwoo.jpeg",
   },
   {
@@ -551,7 +551,7 @@ export const idols: Idol[] = [
     birthplace: "Seoul, South Korea",
     position: "Visual, Center",
     quote: "At the center of your heart!",
-    rarity: "epic",
+    rarity: "rare",
     image: "/images/ian.jpeg",
   },
   {
@@ -563,7 +563,7 @@ export const idols: Idol[] = [
     birthplace: "Yangsan, Gyeongsangnam-do, South Korea",
     position: "Vocalist, Maknae",
     quote: "Smile with your heart!",
-    rarity: "rare",
+    rarity: "common",
     image: "/images/yeon.jpeg",
   },
   {
@@ -611,7 +611,7 @@ export const idols: Idol[] = [
     birthplace: "Kochi City, Japan",
     position: "Vocalist, Dancer",
     quote: "Grace meets strength",
-    rarity: "common",
+    rarity: "mythical",
     image: "/images/kazuha.jpeg",
   },
   {
@@ -623,7 +623,7 @@ export const idols: Idol[] = [
     birthplace: "Miryang, South Korea",
     position: "Vocalist, Lead Dancer, Maknae",
     quote: "Smile Potato!",
-    rarity: "common",
+    rarity: "mythical",
     image: "/images/eunchae.jpeg",
   },
 ];
